@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ac8353edba5947daacd10f73d0bf9115" Name="Diagram1">
+        <EntityTypeShape EntityType="VerkkokauppaModel.Admin" Width="1.5" PointX="7.75" PointY="8.75" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.Category" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.OrderDetails" Width="1.5" PointX="7.5" PointY="2.5" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.Orders" Width="1.5" PointX="5.25" PointY="2.5" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.PostOffice" Width="1.5" PointX="0.75" PointY="4" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.Products" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.Tracking" Width="1.5" PointX="7.5" PointY="5.875" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.Users" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="VerkkokauppaModel.Wishlist" Width="1.5" PointX="5.25" PointY="5.625" />
+        <AssociationConnector Association="VerkkokauppaModel.FK_Products_Category" />
+        <AssociationConnector Association="VerkkokauppaModel.FK__Order_Det__Order__797309D9" />
+        <AssociationConnector Association="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B" />
+        <AssociationConnector Association="VerkkokauppaModel.FK_Orders_Users" />
+        <AssociationConnector Association="VerkkokauppaModel.FK_Tracking_Orders" />
+        <AssociationConnector Association="VerkkokauppaModel.FK_Users_PostOffice" />
+        <AssociationConnector Association="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
