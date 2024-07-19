@@ -10,7 +10,14 @@ namespace ValpeVerkkokauppa.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (Session["AdminID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Admins");
+            }
         }
 
         public ActionResult About()
