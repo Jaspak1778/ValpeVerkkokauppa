@@ -20,7 +20,15 @@
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Admins", "Index", "Admins", new { area = "" }, new { @class = "nav-link" })</li>
+                    @if (Session["AdminID"] != null)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Admins", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li><a class="nav-link">Welcome, @Session["AdminName"]</a></li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Admins", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
                 </ul>
             </div>
         </div>

@@ -11,14 +11,32 @@ namespace ValpeVerkkokauppa.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Admin
     {
         public int AdminID { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(100)]
         public string Email { get; set; }
+
+        [Phone]
+        [StringLength(15)]
         public string Phonenumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(100)]
         public string Password { get; set; }
+
+        [StringLength(100)]
         public string Salt { get; set; }
     }
 }
+
