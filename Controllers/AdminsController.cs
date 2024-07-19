@@ -69,5 +69,12 @@ namespace ValpeVerkkokauppa.Controllers
             Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+        // GET: Admins/Index
+        public ActionResult Index()
+        {
+            var admins = db.Admin.ToList();
+            return View(admins);
+        }
     }
 }
