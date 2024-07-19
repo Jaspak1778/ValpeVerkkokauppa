@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ValpeVerkkokauppa.Models;
 using ValpeVerkkokauppa.Helpers;
 using ValpeVerkkokauppa.ViewModels;
@@ -12,15 +14,18 @@ namespace ValpeVerkkokauppa.Controllers
         private VerkkokauppaEntities db = new VerkkokauppaEntities();
 
         // GET: Admins/Login
-        public ActionResult Login()
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         // POST: Admins/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginViewModel model)
+        [AllowAnonymous]
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -29,7 +34,17 @@ namespace ValpeVerkkokauppa.Controllers
                 {
                     Session["AdminID"] = admin.AdminID.ToString();
                     Session["AdminName"] = admin.Name.ToString();
-                    return RedirectToAction("Index", "Home");
+
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
+
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -39,35 +54,11 @@ namespace ValpeVerkkokauppa.Controllers
             return View(model);
         }
 
-        // Action to update salts and hash passwords for existing users
-        public ActionResult UpdateAdminPasswords()
-        {
-            var admins = db.Admin.ToList();
-            foreach (var admin in admins)
-            {
-                if (string.IsNullOrEmpty(admin.Salt))
-                {
-                    // Generate a new salt
-                    var salt = PasswordHelper.GenerateSalt();
-                    admin.Salt = salt;
-
-                    // Hash the existing password with the new salt
-                    var hashedPassword = PasswordHelper.HashPassword(admin.Password, salt);
-                    admin.Password = hashedPassword;
-
-                    // Update the admin record
-                    db.Entry(admin).State = System.Data.Entity.EntityState.Modified;
-                }
-            }
-            db.SaveChanges();
-
-            return Content("Admin passwords updated successfully.");
-        }
-
         // GET: Admins/Logout
         public ActionResult Logout()
         {
             Session.Clear();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

@@ -1,0 +1,15 @@
+﻿<ul class="navbar-nav flex-grow-1">
+    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li>@Html.ActionLink("Logout", "Logout", "Admins", new { area = "" }, new { @class = "nav-link" })</li>
+        <li><a class="nav-link">Welcome, @User.Identity.Name</a></li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Login", "Login", "Admins", new { area = "" }, new { @class = "nav-link" })</li>
+    }
+</ul>
+
