@@ -12,8 +12,9 @@
           <Property Name="AdminID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Phonenumber" Type="int" Nullable="false" />
+          <Property Name="Phonenumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -92,8 +93,6 @@
           <Property Name="Phonenumber" Type="nvarchar" MaxLength="24" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="64" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Verkkokauppa.dbo.Wishlist' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Wishlist">
           <Key>
             <PropertyRef Name="WishlistID" />
@@ -195,12 +194,7 @@ warning 6002: The table/view 'Verkkokauppa.dbo.Wishlist' does not have a primary
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tracking" EntityType="Self.Tracking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Wishlist].[WishlistID] AS [WishlistID], 
-    [Wishlist].[UserID] AS [UserID]
-    FROM [dbo].[Wishlist] AS [Wishlist]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Order_Det__Order__797309D9" Association="Self.FK__Order_Det__Order__797309D9">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -281,8 +275,9 @@ warning 6002: The table/view 'Verkkokauppa.dbo.Wishlist' does not have a primary
           <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phonenumber" Type="Int32" Nullable="false" />
+          <Property Name="Phonenumber" Type="String" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Salt" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -475,6 +470,7 @@ warning 6002: The table/view 'Verkkokauppa.dbo.Wishlist' does not have a primary
           <EntitySetMapping Name="Admin">
             <EntityTypeMapping TypeName="VerkkokauppaModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

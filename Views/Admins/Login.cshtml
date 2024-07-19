@@ -11,18 +11,18 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "control-label col-md-2" })
+        @Html.LabelFor((ValpeVerkkokauppa.ViewModels.LoginViewModel m) => m.Email, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email)
+            @Html.TextBoxFor((ValpeVerkkokauppa.ViewModels.LoginViewModel m) => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor((ValpeVerkkokauppa.ViewModels.LoginViewModel m) => m.Email)
         </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "control-label col-md-2" })
+        @Html.LabelFor((ValpeVerkkokauppa.ViewModels.LoginViewModel m) => m.Password, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password)
+            @Html.PasswordFor((ValpeVerkkokauppa.ViewModels.LoginViewModel m) => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor((ValpeVerkkokauppa.ViewModels.LoginViewModel m) => m.Password)
         </div>
     </div>
 
