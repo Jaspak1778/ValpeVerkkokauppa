@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -48,13 +49,35 @@ namespace ValpeVerkkokauppa.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,Image,UnitsInStock")] Products products)
+        public ActionResult Create([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,UnitsInStock")] Products products, HttpPostedFileBase imageFile)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(products);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (imageFile != null && imageFile.ContentLength > 0)
+                {
+                    using (var binaryReader = new System.IO.BinaryReader(imageFile.InputStream))
+                    {
+                        products.Image = binaryReader.ReadBytes(imageFile.ContentLength);
+                    }
+                }
+
+                try
+                {
+                    db.Products.Add(products);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Diagnostics.Debug.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                            ModelState.AddModelError(validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+                }
             }
 
             ViewBag.CategoryID = new SelectList(db.Category, "Category_ID", "Name", products.CategoryID);
@@ -82,14 +105,27 @@ namespace ValpeVerkkokauppa.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,Image,UnitsInStock")] Products products)
+        public ActionResult Edit([Bind(Include = "CategoryID,Name,Price,Description,Discount,UnitsInStock")] Products products, HttpPostedFileBase imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.ContentLength > 0)
+                {
+                    using (var binaryReader = new System.IO.BinaryReader(imageFile.InputStream))
+                    {
+                        products.Image = binaryReader.ReadBytes(imageFile.ContentLength);
+                    }
+                }
+                else
+                {
+                    db.Entry(products).Property(m => m.Image).IsModified = false;
+                }
+
                 db.Entry(products).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.CategoryID = new SelectList(db.Category, "Category_ID", "Name", products.CategoryID);
             return View(products);
         }
@@ -119,6 +155,21 @@ namespace ValpeVerkkokauppa.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public ActionResult GetImage(int id)
+        {
+            var product = db.Products.Find(id);
+            if (product != null && product.Image != null)
+            {
+                return File(product.Image, "image/jpeg"); // Assuming the image is in jpeg format
+            }
+            else
+            {
+                // Return a default image or a 404 not found image
+                return File("~/Content/Images/default.jpg", "image/jpeg");
+            }
+        }
+
 
         protected override void Dispose(bool disposing)
         {

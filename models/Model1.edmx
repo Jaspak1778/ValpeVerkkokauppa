@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
-  <!-- EF Runtime content -->
-  <edmx:Runtime>
-    <!-- SSDL content -->
-    <edmx:StorageModels>
-    <Schema Namespace="VerkkokauppaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+	<!-- EF Runtime content -->
+	<edmx:Runtime>
+		<!-- SSDL content -->
+		<edmx:StorageModels>
+		<Schema Namespace="VerkkokauppaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminID" />
@@ -56,10 +56,10 @@
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="Discount" Type="int" />
-          <Property Name="Image" Type="bit" />
+          <Property Name="Image" Type="varbinary(max)" />
           <Property Name="UnitsInStock" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -225,374 +225,376 @@
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="VerkkokauppaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="VerkkokauppaEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Admin" EntityType="VerkkokauppaModel.Admin" />
-          <EntitySet Name="Category" EntityType="VerkkokauppaModel.Category" />
-          <EntitySet Name="OrderDetails" EntityType="VerkkokauppaModel.OrderDetails" />
-          <EntitySet Name="Orders" EntityType="VerkkokauppaModel.Orders" />
-          <EntitySet Name="PostOffice" EntityType="VerkkokauppaModel.PostOffice" />
-          <EntitySet Name="Products" EntityType="VerkkokauppaModel.Products" />
-          <EntitySet Name="sysdiagrams" EntityType="VerkkokauppaModel.sysdiagrams" />
-          <EntitySet Name="Tracking" EntityType="VerkkokauppaModel.Tracking" />
-          <EntitySet Name="Users" EntityType="VerkkokauppaModel.Users" />
-          <EntitySet Name="Wishlist" EntityType="VerkkokauppaModel.Wishlist" />
-          <AssociationSet Name="FK_Products_Category" Association="VerkkokauppaModel.FK_Products_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Order_Det__Order__797309D9" Association="VerkkokauppaModel.FK__Order_Det__Order__797309D9">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Produ__7B5B524B" Association="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="OrderDetails" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Orders_Users" Association="VerkkokauppaModel.FK_Orders_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tracking_Orders" Association="VerkkokauppaModel.FK_Tracking_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="Tracking" EntitySet="Tracking" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_PostOffice" Association="VerkkokauppaModel.FK_Users_PostOffice">
-            <End Role="PostOffice" EntitySet="PostOffice" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Wishlist__UserID__7A672E12" Association="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Wishlist" EntitySet="Wishlist" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="Admin">
-          <Key>
-            <PropertyRef Name="AdminID" />
-          </Key>
-          <Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phonenumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <Property Name="Salt" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Category">
-          <Key>
-            <PropertyRef Name="Category_ID" />
-          </Key>
-          <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK_Products_Category" FromRole="Category" ToRole="Products" />
-        </EntityType>
-        <EntityType Name="OrderDetails">
-          <Key>
-            <PropertyRef Name="OrderDetailsID" />
-          </Key>
-          <Property Name="OrderDetailsID" Type="Int32" Nullable="false" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK__Order_Det__Order__797309D9" FromRole="OrderDetails" ToRole="Orders" />
-          <NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B" FromRole="OrderDetails" ToRole="Products" />
-        </EntityType>
-        <EntityType Name="Orders">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="OrderDate" Type="DateTime" Precision="0" />
-          <Property Name="ShippedDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__Order_Det__Order__797309D9" FromRole="Orders" ToRole="OrderDetails" />
-          <NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
-          <NavigationProperty Name="Tracking" Relationship="VerkkokauppaModel.FK_Tracking_Orders" FromRole="Orders" ToRole="Tracking" />
-        </EntityType>
-        <EntityType Name="PostOffice">
-          <Key>
-            <PropertyRef Name="Zipcode" />
-          </Key>
-          <Property Name="Zipcode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
-          <Property Name="PostOffice1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK_Users_PostOffice" FromRole="PostOffice" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="Products">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Discount" Type="Int32" />
-          <Property Name="Image" Type="Boolean" />
-          <Property Name="UnitsInStock" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Category" Relationship="VerkkokauppaModel.FK_Products_Category" FromRole="Products" ToRole="Category" />
-          <NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B" FromRole="Products" ToRole="OrderDetails" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="Tracking">
-          <Key>
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="TrackingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK_Tracking_Orders" FromRole="Tracking" ToRole="Orders" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Zipcode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
-          <Property Name="Phonenumber" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
-          <NavigationProperty Name="PostOffice" Relationship="VerkkokauppaModel.FK_Users_PostOffice" FromRole="Users" ToRole="PostOffice" />
-          <NavigationProperty Name="Wishlist" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" FromRole="Users" ToRole="Wishlist" />
-        </EntityType>
-        <EntityType Name="Wishlist">
-          <Key>
-            <PropertyRef Name="WishlistID" />
-          </Key>
-          <Property Name="WishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" />
-          <NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" FromRole="Wishlist" ToRole="Users" />
-        </EntityType>
-        <Association Name="FK_Products_Category">
-          <End Type="VerkkokauppaModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Category_ID" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Order_Det__Order__797309D9">
-          <End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__OrderDeta__Produ__7B5B524B">
-          <End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
-            </Principal>
-            <Dependent Role="OrderDetails">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Orders_Users">
-          <End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tracking_Orders">
-          <End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.Tracking" Role="Tracking" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="OrderID" />
-            </Principal>
-            <Dependent Role="Tracking">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Users_PostOffice">
-          <End Type="VerkkokauppaModel.PostOffice" Role="PostOffice" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PostOffice">
-              <PropertyRef Name="Zipcode" />
-            </Principal>
-            <Dependent Role="Users">
-              <PropertyRef Name="Zipcode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Wishlist__UserID__7A672E12">
-          <End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="0..1" />
-          <End Type="VerkkokauppaModel.Wishlist" Role="Wishlist" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Wishlist">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        </Schema>
-    </edmx:ConceptualModels>
-    <!-- C-S mapping content -->
-    <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VerkkokauppaModelStoreContainer" CdmEntityContainer="VerkkokauppaEntities">
-          <EntitySetMapping Name="Admin">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Admin">
-              <MappingFragment StoreEntitySet="Admin">
-                <ScalarProperty Name="Salt" ColumnName="Salt" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AdminID" ColumnName="AdminID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Category">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Category">
-              <MappingFragment StoreEntitySet="Category">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.OrderDetails">
-              <MappingFragment StoreEntitySet="OrderDetails">
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="OrderDetailsID" ColumnName="OrderDetailsID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Orders">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PostOffice">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.PostOffice">
-              <MappingFragment StoreEntitySet="PostOffice">
-                <ScalarProperty Name="PostOffice1" ColumnName="PostOffice" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Products">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tracking">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Tracking">
-              <MappingFragment StoreEntitySet="Tracking">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="TrackingID" ColumnName="TrackingID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Users">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
-                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Wishlist">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Wishlist">
-              <MappingFragment StoreEntitySet="Wishlist">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
-  </edmx:Runtime>
-  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-      </DesignerInfoPropertySet>
-    </Options>
-    <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
-  </Designer>
+		<!-- CSDL content -->
+		<edmx:ConceptualModels>
+			<Schema Namespace="VerkkokauppaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+				<EntityContainer Name="VerkkokauppaEntities" annotation:LazyLoadingEnabled="true">
+					<EntitySet Name="Admin" EntityType="VerkkokauppaModel.Admin" />
+					<EntitySet Name="Category" EntityType="VerkkokauppaModel.Category" />
+					<EntitySet Name="OrderDetails" EntityType="VerkkokauppaModel.OrderDetails" />
+					<EntitySet Name="Orders" EntityType="VerkkokauppaModel.Orders" />
+					<EntitySet Name="PostOffice" EntityType="VerkkokauppaModel.PostOffice" />
+					<EntitySet Name="Products" EntityType="VerkkokauppaModel.Products" />
+					<EntitySet Name="sysdiagrams" EntityType="VerkkokauppaModel.sysdiagrams" />
+					<EntitySet Name="Tracking" EntityType="VerkkokauppaModel.Tracking" />
+					<EntitySet Name="Users" EntityType="VerkkokauppaModel.Users" />
+					<EntitySet Name="Wishlist" EntityType="VerkkokauppaModel.Wishlist" />
+					<AssociationSet Name="FK_Products_Category" Association="VerkkokauppaModel.FK_Products_Category">
+						<End Role="Category" EntitySet="Category" />
+						<End Role="Products" EntitySet="Products" />
+					</AssociationSet>
+					<AssociationSet Name="FK__Order_Det__Order__797309D9" Association="VerkkokauppaModel.FK__Order_Det__Order__797309D9">
+						<End Role="Orders" EntitySet="Orders" />
+						<End Role="OrderDetails" EntitySet="OrderDetails" />
+					</AssociationSet>
+					<AssociationSet Name="FK__OrderDeta__Produ__7B5B524B" Association="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B">
+						<End Role="Products" EntitySet="Products" />
+						<End Role="OrderDetails" EntitySet="OrderDetails" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Orders_Users" Association="VerkkokauppaModel.FK_Orders_Users">
+						<End Role="Users" EntitySet="Users" />
+						<End Role="Orders" EntitySet="Orders" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Tracking_Orders" Association="VerkkokauppaModel.FK_Tracking_Orders">
+						<End Role="Orders" EntitySet="Orders" />
+						<End Role="Tracking" EntitySet="Tracking" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Users_PostOffice" Association="VerkkokauppaModel.FK_Users_PostOffice">
+						<End Role="PostOffice" EntitySet="PostOffice" />
+						<End Role="Users" EntitySet="Users" />
+					</AssociationSet>
+					<AssociationSet Name="FK__Wishlist__UserID__7A672E12" Association="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12">
+						<End Role="Users" EntitySet="Users" />
+						<End Role="Wishlist" EntitySet="Wishlist" />
+					</AssociationSet>
+				</EntityContainer>
+				<EntityType Name="Admin">
+					<Key>
+						<PropertyRef Name="AdminID" />
+					</Key>
+					<Property Name="AdminID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="Phonenumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+					<Property Name="Password" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+					<Property Name="Salt" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Category">
+					<Key>
+						<PropertyRef Name="Category_ID" />
+					</Key>
+					<Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK_Products_Category" FromRole="Category" ToRole="Products" />
+				</EntityType>
+				<EntityType Name="OrderDetails">
+					<Key>
+						<PropertyRef Name="OrderDetailsID" />
+					</Key>
+					<Property Name="OrderDetailsID" Type="Int32" Nullable="false" />
+					<Property Name="OrderID" Type="Int32" Nullable="false" />
+					<Property Name="ProductID" Type="Int32" Nullable="false" />
+					<Property Name="Quantity" Type="Int32" Nullable="false" />
+					<Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+					<NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK__Order_Det__Order__797309D9" FromRole="OrderDetails" ToRole="Orders" />
+					<NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B" FromRole="OrderDetails" ToRole="Products" />
+				</EntityType>
+				<EntityType Name="Orders">
+					<Key>
+						<PropertyRef Name="OrderID" />
+					</Key>
+					<Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="UserID" Type="Int32" Nullable="false" />
+					<Property Name="OrderDate" Type="DateTime" Precision="0" />
+					<Property Name="ShippedDate" Type="DateTime" Precision="0" />
+					<NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__Order_Det__Order__797309D9" FromRole="Orders" ToRole="OrderDetails" />
+					<NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+					<NavigationProperty Name="Tracking" Relationship="VerkkokauppaModel.FK_Tracking_Orders" FromRole="Orders" ToRole="Tracking" />
+				</EntityType>
+				<EntityType Name="PostOffice">
+					<Key>
+						<PropertyRef Name="Zipcode" />
+					</Key>
+					<Property Name="Zipcode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+					<Property Name="PostOffice1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK_Users_PostOffice" FromRole="PostOffice" ToRole="Users" />
+				</EntityType>
+				<EntityType Name="Products">
+					<Key>
+						<PropertyRef Name="ProductID" />
+					</Key>
+					<Property Name="ProductID" Type="Int32" Nullable="false" />
+					<Property Name="CategoryID" Type="Int32" Nullable="false" />
+					<Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+					<Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+					<Property Name="Discount" Type="Int32" />
+					<Property Name="Image" Type="Binary" Nullable="true" MaxLength="Max" FixedLength="false" />
+					<!-- Ensure this is Binary -->
+					<Property Name="UnitsInStock" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<NavigationProperty Name="Category" Relationship="VerkkokauppaModel.FK_Products_Category" FromRole="Products" ToRole="Category" />
+					<NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__OrderDeta__Produ__7B5B524B" FromRole="Products" ToRole="OrderDetails" />
+				</EntityType>
+				<EntityType Name="sysdiagrams">
+					<Key>
+						<PropertyRef Name="diagram_id" />
+					</Key>
+					<Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+					<Property Name="principal_id" Type="Int32" Nullable="false" />
+					<Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="version" Type="Int32" />
+					<Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+				</EntityType>
+				<EntityType Name="Tracking">
+					<Key>
+						<PropertyRef Name="OrderID" />
+					</Key>
+					<Property Name="TrackingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="OrderID" Type="Int32" Nullable="false" />
+					<Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK_Tracking_Orders" FromRole="Tracking" ToRole="Orders" />
+				</EntityType>
+				<EntityType Name="Users">
+					<Key>
+						<PropertyRef Name="UserID" />
+					</Key>
+					<Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+					<Property Name="Zipcode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="false" />
+					<Property Name="Phonenumber" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="true" />
+					<Property Name="Password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+					<NavigationProperty Name="PostOffice" Relationship="VerkkokauppaModel.FK_Users_PostOffice" FromRole="Users" ToRole="PostOffice" />
+					<NavigationProperty Name="Wishlist" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" FromRole="Users" ToRole="Wishlist" />
+				</EntityType>
+				<EntityType Name="Wishlist">
+					<Key>
+						<PropertyRef Name="WishlistID" />
+					</Key>
+					<Property Name="WishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="UserID" Type="Int32" />
+					<NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" FromRole="Wishlist" ToRole="Users" />
+				</EntityType>
+				<Association Name="FK_Products_Category">
+					<End Type="VerkkokauppaModel.Category" Role="Category" Multiplicity="1" />
+					<End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Category">
+							<PropertyRef Name="Category_ID" />
+						</Principal>
+						<Dependent Role="Products">
+							<PropertyRef Name="CategoryID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK__Order_Det__Order__797309D9">
+					<End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="1" />
+					<End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Orders">
+							<PropertyRef Name="OrderID" />
+						</Principal>
+						<Dependent Role="OrderDetails">
+							<PropertyRef Name="OrderID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK__OrderDeta__Produ__7B5B524B">
+					<End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="1" />
+					<End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Products">
+							<PropertyRef Name="ProductID" />
+						</Principal>
+						<Dependent Role="OrderDetails">
+							<PropertyRef Name="ProductID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Orders_Users">
+					<End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="1" />
+					<End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Users">
+							<PropertyRef Name="UserID" />
+						</Principal>
+						<Dependent Role="Orders">
+							<PropertyRef Name="UserID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Tracking_Orders">
+					<End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="1" />
+					<End Type="VerkkokauppaModel.Tracking" Role="Tracking" Multiplicity="0..1" />
+					<ReferentialConstraint>
+						<Principal Role="Orders">
+							<PropertyRef Name="OrderID" />
+						</Principal>
+						<Dependent Role="Tracking">
+							<PropertyRef Name="OrderID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Users_PostOffice">
+					<End Type="VerkkokauppaModel.PostOffice" Role="PostOffice" Multiplicity="1" />
+					<End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="PostOffice">
+							<PropertyRef Name="Zipcode" />
+						</Principal>
+						<Dependent Role="Users">
+							<PropertyRef Name="Zipcode" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK__Wishlist__UserID__7A672E12">
+					<End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="0..1" />
+					<End Type="VerkkokauppaModel.Wishlist" Role="Wishlist" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Users">
+							<PropertyRef Name="UserID" />
+						</Principal>
+						<Dependent Role="Wishlist">
+							<PropertyRef Name="UserID" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+			</Schema>
+		</edmx:ConceptualModels>
+		<!-- C-S mapping content -->
+		<edmx:Mappings>
+			<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+				<EntityContainerMapping StorageEntityContainer="VerkkokauppaModelStoreContainer" CdmEntityContainer="VerkkokauppaEntities">
+					<EntitySetMapping Name="Admin">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Admin">
+							<MappingFragment StoreEntitySet="Admin">
+								<ScalarProperty Name="Salt" ColumnName="Salt" />
+								<ScalarProperty Name="Password" ColumnName="Password" />
+								<ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+								<ScalarProperty Name="Email" ColumnName="Email" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="AdminID" ColumnName="AdminID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Category">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Category">
+							<MappingFragment StoreEntitySet="Category">
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="OrderDetails">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.OrderDetails">
+							<MappingFragment StoreEntitySet="OrderDetails">
+								<ScalarProperty Name="Price" ColumnName="Price" />
+								<ScalarProperty Name="Quantity" ColumnName="Quantity" />
+								<ScalarProperty Name="ProductID" ColumnName="ProductID" />
+								<ScalarProperty Name="OrderID" ColumnName="OrderID" />
+								<ScalarProperty Name="OrderDetailsID" ColumnName="OrderDetailsID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Orders">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Orders">
+							<MappingFragment StoreEntitySet="Orders">
+								<ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+								<ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+								<ScalarProperty Name="UserID" ColumnName="UserID" />
+								<ScalarProperty Name="OrderID" ColumnName="OrderID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="PostOffice">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.PostOffice">
+							<MappingFragment StoreEntitySet="PostOffice">
+								<ScalarProperty Name="PostOffice1" ColumnName="PostOffice" />
+								<ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Products">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Products">
+							<MappingFragment StoreEntitySet="Products">
+								<ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
+								<ScalarProperty Name="Image" ColumnName="Image" />
+								<!-- Ensure this maps correctly -->
+								<ScalarProperty Name="Discount" ColumnName="Discount" />
+								<ScalarProperty Name="Description" ColumnName="Description" />
+								<ScalarProperty Name="Price" ColumnName="Price" />
+								<ScalarProperty Name="Name" ColumnName="Name" />
+								<ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+								<ScalarProperty Name="ProductID" ColumnName="ProductID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="sysdiagrams">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.sysdiagrams">
+							<MappingFragment StoreEntitySet="sysdiagrams">
+								<ScalarProperty Name="definition" ColumnName="definition" />
+								<ScalarProperty Name="version" ColumnName="version" />
+								<ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+								<ScalarProperty Name="principal_id" ColumnName="principal_id" />
+								<ScalarProperty Name="name" ColumnName="name" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Tracking">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Tracking">
+							<MappingFragment StoreEntitySet="Tracking">
+								<ScalarProperty Name="Status" ColumnName="Status" />
+								<ScalarProperty Name="OrderID" ColumnName="OrderID" />
+								<ScalarProperty Name="TrackingID" ColumnName="TrackingID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Users">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Users">
+							<MappingFragment StoreEntitySet="Users">
+								<ScalarProperty Name="Password" ColumnName="Password" />
+								<ScalarProperty Name="Phonenumber" ColumnName="Phonenumber" />
+								<ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+								<ScalarProperty Name="Address" ColumnName="Address" />
+								<ScalarProperty Name="Email" ColumnName="Email" />
+								<ScalarProperty Name="LastName" ColumnName="LastName" />
+								<ScalarProperty Name="FirstName" ColumnName="FirstName" />
+								<ScalarProperty Name="UserID" ColumnName="UserID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Wishlist">
+						<EntityTypeMapping TypeName="VerkkokauppaModel.Wishlist">
+							<MappingFragment StoreEntitySet="Wishlist">
+								<ScalarProperty Name="UserID" ColumnName="UserID" />
+								<ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+				</EntityContainerMapping>
+			</Mapping>
+		</edmx:Mappings>
+	</edmx:Runtime>
+	<!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+	<Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+		<Connection>
+			<DesignerInfoPropertySet>
+				<DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+			</DesignerInfoPropertySet>
+		</Connection>
+		<Options>
+			<DesignerInfoPropertySet>
+				<DesignerProperty Name="ValidateOnBuild" Value="true" />
+				<DesignerProperty Name="EnablePluralization" Value="false" />
+				<DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+				<DesignerProperty Name="UseLegacyProvider" Value="false" />
+				<DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+			</DesignerInfoPropertySet>
+		</Options>
+		<!-- Diagram content (shape and connector positions) -->
+		<Diagrams></Diagrams>
+	</Designer>
 </edmx:Edmx>
