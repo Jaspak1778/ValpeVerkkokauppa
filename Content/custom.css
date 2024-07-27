@@ -1,0 +1,65 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+.border1 {
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+}
+
+.box {
+    display: grid;
+    
+    grid-template-columns: 1fr 3fr;
+    gap: 2px 2em;
+}
+
+    .box :first-child {
+        align-self: auto;
+    }
+
+.oval {
+    height: 80px;
+    width: 250px;
+    background-color: deepskyblue;
+    border-radius: 50%;
+}
+
+.fonts1 {
+    margin-top: 25px;
+    margin-left: 8px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    color: white;
+}
+
+/* Näyteikkuna */
+#showcase {
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+#product-display h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #333;
+}
+
+#product-display p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #666;
+}
+
+
+.picture-display{
+    width: 300px; 
+    height: 300px; 
+    background-size: cover;
+    background-position: center;
+}

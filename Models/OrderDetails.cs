@@ -21,6 +21,7 @@ namespace ValpeVerkkokauppa.Models
         public decimal Price { get; set; }
     
         public virtual Orders Orders { get; set; }
+        public virtual Orders Orders1 { get; set; }
         public virtual Products Products { get; set; }
     }
 }

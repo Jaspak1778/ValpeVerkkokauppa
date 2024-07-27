@@ -19,6 +19,7 @@ namespace ValpeVerkkokauppa.Models
         {
             this.Orders = new HashSet<Orders>();
             this.Wishlist = new HashSet<Wishlist>();
+            this.Wishlist1 = new HashSet<Wishlist>();
         }
     
         public int UserID { get; set; }
@@ -35,5 +36,7 @@ namespace ValpeVerkkokauppa.Models
         public virtual PostOffice PostOffice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlist { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlist1 { get; set; }
     }
 }

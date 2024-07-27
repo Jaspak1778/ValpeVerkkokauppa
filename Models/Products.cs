@@ -9,6 +9,7 @@
 
 namespace ValpeVerkkokauppa.Models
 {
+    using System.ComponentModel.DataAnnotations;
     using System;
     using System.Collections.Generic;
     
@@ -24,10 +25,11 @@ namespace ValpeVerkkokauppa.Models
         public int CategoryID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        [Required(ErrorMessage = "Kuvaus on pakollinen")]
         public string Description { get; set; }
         public Nullable<int> Discount { get; set; }
-        public Nullable<bool> Image { get; set; }
-        public int UnitsInStock { get; set; }
+        public byte[] Image { get; set; }
+        public Nullable<int> UnitsInStock { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

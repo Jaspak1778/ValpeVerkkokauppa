@@ -52,14 +52,14 @@
           <Key>
             <PropertyRef Name="ProductID" />
           </Key>
-          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Discount" Type="int" />
-          <Property Name="Image" Type="bit" />
-          <Property Name="UnitsInStock" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="UnitsInStock" Type="int" />
         </EntityType>
         <EntityType Name="Tracking">
           <Key>
@@ -89,7 +89,7 @@
           <Property Name="WishlistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="int" />
         </EntityType>
-        <Association Name="FK__OrderDeta__Order__5812160E">
+        <Association Name="FK__OrderDeta__Order">
           <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -101,7 +101,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Produ__59063A47">
+        <Association Name="FK__OrderDeta__ProductID">
           <End Role="Products" Type="Self.Products" Multiplicity="1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
@@ -109,11 +109,23 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="OrderDetails">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Wishlist__UserID__5DCAEF64">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__UserID__7A672E12">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Products_Category">
+        <Association Name="FK_Product_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,11 +195,11 @@
           <EntitySet Name="Tracking" EntityType="Self.Tracking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__OrderDeta__Order__5812160E" Association="Self.FK__OrderDeta__Order__5812160E">
+          <AssociationSet Name="FK__OrderDeta__Order" Association="Self.FK__OrderDeta__Order">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Produ__59063A47" Association="Self.FK__OrderDeta__Produ__59063A47">
+          <AssociationSet Name="FK__OrderDeta__ProductID" Association="Self.FK__OrderDeta__ProductID">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
@@ -195,11 +207,15 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__UserID__7A672E12" Association="Self.FK__Wishlist__UserID__7A672E12">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
           <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_Products_Category" Association="Self.FK_Products_Category">
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
@@ -216,26 +232,21 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VerkkokauppaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="VerkkokauppaEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="VerkkokauppaEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admin" EntityType="VerkkokauppaModel.Admin" />
           <EntitySet Name="Category" EntityType="VerkkokauppaModel.Category" />
           <EntitySet Name="OrderDetails" EntityType="VerkkokauppaModel.OrderDetails" />
           <EntitySet Name="Orders" EntityType="VerkkokauppaModel.Orders" />
           <EntitySet Name="PostOffice" EntityType="VerkkokauppaModel.PostOffice" />
-          <EntitySet Name="Products" EntityType="VerkkokauppaModel.Products" />
           <EntitySet Name="Tracking" EntityType="VerkkokauppaModel.Tracking" />
           <EntitySet Name="Users" EntityType="VerkkokauppaModel.Users" />
           <EntitySet Name="Wishlist" EntityType="VerkkokauppaModel.Wishlist" />
-          <AssociationSet Name="FK_Products_Category" Association="VerkkokauppaModel.FK_Products_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Products" EntitySet="Products" />
-          </AssociationSet>
           <AssociationSet Name="FK__OrderDeta__Order__5812160E" Association="VerkkokauppaModel.FK__OrderDeta__Order__5812160E">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK__OrderDeta__Produ__59063A47" Association="VerkkokauppaModel.FK__OrderDeta__Produ__59063A47">
-            <End Role="Products" EntitySet="Products" />
+          <AssociationSet Name="FK__OrderDeta__Order__76969D2E" Association="VerkkokauppaModel.FK__OrderDeta__Order__76969D2E">
+            <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Users" Association="VerkkokauppaModel.FK_Orders_Users">
@@ -254,6 +265,19 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__UserID__7A672E12" Association="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+          <EntitySet Name="Products" EntityType="VerkkokauppaModel.Products" />
+          <AssociationSet Name="FK_Product_Category" Association="VerkkokauppaModel.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__ProductID" Association="VerkkokauppaModel.FK__OrderDeta__ProductID">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -271,7 +295,7 @@
           </Key>
           <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK_Products_Category" FromRole="Category" ToRole="Products" />
+          <NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK_Product_Category" FromRole="Category" ToRole="Products" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -283,8 +307,9 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK__OrderDeta__Order__5812160E" FromRole="OrderDetails" ToRole="Orders" />
-          <NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK__OrderDeta__Produ__59063A47" FromRole="OrderDetails" ToRole="Products" />
-        </EntityType>
+          <NavigationProperty Name="Orders1" Relationship="VerkkokauppaModel.FK__OrderDeta__Order__76969D2E" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="VerkkokauppaModel.FK__OrderDeta__ProductID" FromRole="OrderDetails" ToRole="Products" />
+          </EntityType>
         <EntityType Name="Orders">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -294,6 +319,7 @@
           <Property Name="OrderDate" Type="DateTime" Precision="0" />
           <Property Name="ShippedDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__OrderDeta__Order__5812160E" FromRole="Orders" ToRole="OrderDetails" />
+          <NavigationProperty Name="OrderDetails1" Relationship="VerkkokauppaModel.FK__OrderDeta__Order__76969D2E" FromRole="Orders" ToRole="OrderDetails" />
           <NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
           <NavigationProperty Name="Tracking" Relationship="VerkkokauppaModel.FK_Tracking_Orders" FromRole="Orders" ToRole="Tracking" />
         </EntityType>
@@ -304,21 +330,6 @@
           <Property Name="Zipcode" Type="Int32" Nullable="false" />
           <Property Name="PostOffice1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK_Users_PostOffice" FromRole="PostOffice" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="Products">
-          <Key>
-            <PropertyRef Name="ProductID" />
-          </Key>
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="CategoryID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Discount" Type="Int32" />
-          <Property Name="Image" Type="Boolean" />
-          <Property Name="UnitsInStock" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Category" Relationship="VerkkokauppaModel.FK_Products_Category" FromRole="Products" ToRole="Category" />
-          <NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__OrderDeta__Produ__59063A47" FromRole="Products" ToRole="OrderDetails" />
         </EntityType>
         <EntityType Name="Tracking">
           <Key>
@@ -344,6 +355,7 @@
           <NavigationProperty Name="Orders" Relationship="VerkkokauppaModel.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="PostOffice" Relationship="VerkkokauppaModel.FK_Users_PostOffice" FromRole="Users" ToRole="PostOffice" />
           <NavigationProperty Name="Wishlist" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__5DCAEF64" FromRole="Users" ToRole="Wishlist" />
+          <NavigationProperty Name="Wishlist1" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" FromRole="Users" ToRole="Wishlist" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -352,19 +364,8 @@
           <Property Name="WishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" />
           <NavigationProperty Name="Users" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__5DCAEF64" FromRole="Wishlist" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" FromRole="Wishlist" ToRole="Users" />
         </EntityType>
-        <Association Name="FK_Products_Category">
-          <End Type="VerkkokauppaModel.Category" Role="Category" Multiplicity="1" />
-          <End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="Category_ID" />
-            </Principal>
-            <Dependent Role="Products">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__OrderDeta__Order__5812160E">
           <End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="1" />
           <End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
@@ -377,15 +378,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__OrderDeta__Produ__59063A47">
-          <End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="1" />
+        <Association Name="FK__OrderDeta__Order__76969D2E">
+          <End Type="VerkkokauppaModel.Orders" Role="Orders" Multiplicity="1" />
           <End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ProductID" />
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
             </Principal>
             <Dependent Role="OrderDetails">
-              <PropertyRef Name="ProductID" />
+              <PropertyRef Name="OrderID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -437,12 +438,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Wishlist__UserID__7A672E12">
+          <End Type="VerkkokauppaModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="VerkkokauppaModel.Wishlist" Role="Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="Int32" />
+          <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="UnitsInStock" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="VerkkokauppaModel.FK_Product_Category" FromRole="Products" ToRole="Category" />
+          <NavigationProperty Name="OrderDetails" Relationship="VerkkokauppaModel.FK__OrderDeta__ProductID" FromRole="Products" ToRole="OrderDetails" />
+        </EntityType>
+        <Association Name="FK_Product_Category">
+          <End Type="VerkkokauppaModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__ProductID">
+          <End Type="VerkkokauppaModel.Products" Role="Products" Multiplicity="1" />
+          <End Type="VerkkokauppaModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="VerkkokauppaModelStoreContainer" CdmEntityContainer="VerkkokauppaEntities">
+        <EntityContainerMapping StorageEntityContainer="VerkkokauppaModelStoreContainer" CdmEntityContainer="VerkkokauppaEntities1">
           <EntitySetMapping Name="Admin">
             <EntityTypeMapping TypeName="VerkkokauppaModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
@@ -491,20 +543,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="VerkkokauppaModel.Products">
-              <MappingFragment StoreEntitySet="Products">
-                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Tracking">
             <EntityTypeMapping TypeName="VerkkokauppaModel.Tracking">
               <MappingFragment StoreEntitySet="Tracking">
@@ -533,6 +571,20 @@
               <MappingFragment StoreEntitySet="Wishlist">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="WishlistID" ColumnName="WishlistID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="VerkkokauppaModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

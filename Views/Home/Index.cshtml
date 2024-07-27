@@ -1,33 +1,123 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<ValpeVerkkokauppa.Models.Products>
+
+
+@helper RenderProductImage(int productId, byte[] image)
+{
+    if (image != null)
+    {
+        <img src="@Url.Action("GetImage", "Products", new { id = productId })" alt="Product Image" style="width:100px;height:100px;" />
+    }
+    else
+    {
+        <p>No Image</p>
+    }
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+<main>
+
+    <div class="box border1">
+
+        @*Box vasen Sivun otsikko ja ikoni*@
+        <div class="border1">
+            @*@<p>@ViewBag.intel</p>*@
+            <h4>Kategoriat</h4>
+            <p>Elektroniikka</p>
+            <p>Esim</p>
+
+        </div>
+
+        @*Box keskellä Sivun otsikko ja ikoni*@
+    <div class="border1">
+        <div class="container">
+            <div class="row">
+                <div class="col-2 oval">
+                    <h4 class="fonts1"><span style="font-style: italic;">ValPe'co </span> WebShop</h4>
+                </div>
+                @*Haku*@
+                <div style="margin-top: 28px; margin-left: 20px" class="col-4">
+                    <input class="form" id="searchString1" name="searchString1" placeholder="Haku" style="width: 200px;" type="text" value="">
+                </div>
+            </div>
+        </div>
+
+        @* Showcase ikkuna *@
+        <div id="showcase">
+            <h2>Esittelyssä</h2>
+            <div id="product-display"></div>
+            <div id="picture-display" class="picture-display"></div>
+        </div>
+
+        @*Keski boxin elementit*@
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @RenderProductImage(item.ProductID, item.Image)
+                    </td>
+
+
+                </tr>
+            }
+        </table>
     </div>
+
+    </div>
+
 </main>
+
+<script>
+    const products = [
+        @foreach (var product in Model)
+        {
+            @: { name: "@product.Name", description: "@product.Description", price: "@product.Price", pictureUrl: "@Url.Action("GetImage", "Products", new { id = product.ProductID })" },
+        }
+    ];
+
+    let currentIndex = 0;
+
+    function showProduct(index) {
+        const productDisplay = document.getElementById("product-display");
+        const imageDisplay = document.getElementById("picture-display");
+        const product = products[index];
+        
+        productDisplay.innerHTML = `
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p>${product.price}</p>
+
+                `;
+        imageDisplay.style.backgroundImage = `url(${product.pictureUrl})`;
+
+    }
+
+    function rotateProducts() {
+        showProduct(currentIndex);
+        currentIndex = (currentIndex + 1) % products.length;
+    }
+
+    setInterval(rotateProducts, 5000);
+
+    document.addEventListener("DOMContentLoaded", rotateProducts);
+</script>
