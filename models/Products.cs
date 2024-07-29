@@ -27,7 +27,7 @@ namespace ValpeVerkkokauppa.Models
         public string Description { get; set; }
         public Nullable<int> Discount { get; set; }
         public byte[] Image { get; set; }
-        public int UnitsInStock { get; set; }
+        public Nullable<int> UnitsInStock { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
