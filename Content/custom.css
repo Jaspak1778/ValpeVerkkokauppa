@@ -69,3 +69,11 @@
     background-color:white;
     color: red;
 }
+
+.buttonCustom1 {
+    font-family:'Segoe UI';
+    padding-left: 10%;
+    width: 90%;
+    background: rgb(212,246,255);
+    background: linear-gradient(90deg, rgba(212,246,255,1) 0%, rgba(86,179,226,0.5736345563616072) 52%, rgba(136,142,232,0.33553931826636907) 100%);
+}
