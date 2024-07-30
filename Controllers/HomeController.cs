@@ -13,15 +13,19 @@ namespace ValpeVerkkokauppa.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly VerkkokauppaEntities1 db = new VerkkokauppaEntities1();
+        private readonly ValpeEntities db = new ValpeEntities();
 
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category);
-            return View(products.ToList());
-        }
+            var viewModel = new ProductCategoryViewModel
+            {
+                Products = db.Products.Include(p => p.Category).ToList(),
+                Categories = db.Category.ToList()
+            };
 
+            return View(viewModel);
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -20,7 +20,7 @@ namespace ValpeVerkkokauppa.Models
             this.Users = new HashSet<Users>();
         }
     
-        public int Zipcode { get; set; }
+        public string Zipcode { get; set; }
         public string PostOffice1 { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

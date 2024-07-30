@@ -4,25 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="043d35ea833946bb83d74dbc1604787d" Name="Diagram1">
-        <EntityTypeShape EntityType="VerkkokauppaModel.Admin" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.Category" Width="1.5" PointX="3" PointY="10" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.OrderDetails" Width="1.5" PointX="7.5" PointY="2.5" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.Orders" Width="1.5" PointX="5.25" PointY="2.625" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.PostOffice" Width="1.5" PointX="0.75" PointY="4.375" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.Tracking" Width="1.5" PointX="7.5" PointY="6.5" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.Users" Width="1.5" PointX="3" PointY="3.5" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.Wishlist" Width="1.5" PointX="5.25" PointY="5.875" />
-        <AssociationConnector Association="VerkkokauppaModel.FK__OrderDeta__Order__5812160E" />
-        <AssociationConnector Association="VerkkokauppaModel.FK__OrderDeta__Order__76969D2E" />
-        <AssociationConnector Association="VerkkokauppaModel.FK_Orders_Users" />
-        <AssociationConnector Association="VerkkokauppaModel.FK_Tracking_Orders" />
-        <AssociationConnector Association="VerkkokauppaModel.FK_Users_PostOffice" />
-        <AssociationConnector Association="VerkkokauppaModel.FK__Wishlist__UserID__5DCAEF64" />
-        <AssociationConnector Association="VerkkokauppaModel.FK__Wishlist__UserID__7A672E12" />
-        <EntityTypeShape EntityType="VerkkokauppaModel.Products" Width="1.5" PointX="5.25" PointY="9.375" />
-        <AssociationConnector Association="VerkkokauppaModel.FK_Product_Category" />
-        <AssociationConnector Association="VerkkokauppaModel.FK__OrderDeta__ProductID" />
+      <Diagram DiagramId="5cdd334e3bb5461e8fa7b0ed50ebe5af" Name="Diagram1">
+        <EntityTypeShape EntityType="ValpeModel.Admin" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.Category" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.OrderDetails" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.Orders" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.PostOffice" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.Products" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.Tracking" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.Users" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ValpeModel.Wishlist" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="ValpeModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="ValpeModel.FK_Orders_OrderDetails_OrderID" ManuallyRouted="false" />
+        <AssociationConnector Association="ValpeModel.FK_Product_OrderDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="ValpeModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="ValpeModel.FK_Tracking_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="ValpeModel.FK_Users_PostOffice" ManuallyRouted="false" />
+        <AssociationConnector Association="ValpeModel.FK__Wishlist__UserID__7A672E12" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

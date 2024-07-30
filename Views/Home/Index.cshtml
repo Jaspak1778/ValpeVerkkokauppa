@@ -1,6 +1,4 @@
-﻿@model IEnumerable<ValpeVerkkokauppa.Models.Products>
-
-
+﻿@model ValpeVerkkokauppa.CustomModel.ProductCategoryViewModel
 @helper RenderProductImage(int productId, byte[] image)
 {
     if (image != null)
@@ -13,99 +11,113 @@
     }
 }
 
-
 <main>
 
     <div class="box border1">
 
         @*Box vasen Sivun otsikko ja ikoni*@
         <div class="border1">
-            @*@<p>@ViewBag.intel</p>*@
-            <h4>Kategoriat</h4>
-            <p>Elektroniikka</p>
-            <p>Esim</p>
-
+            <table class="table">
+                <tr>
+                    <th>
+                        <h3>Kategoriat</h3>
+                    </th>
+                </tr>
+                @foreach (var item in Model.Categories)
+                {
+                    <tr>
+                        <td>
+                            <a class="btn btn-info" href="/Products/CategoryView?id=@item.Category_ID">@item.Name</a>
+                        </td>
+                    </tr>
+                }
+            </table>
         </div>
 
         @*Box keskellä Sivun otsikko ja ikoni*@
-    <div class="border1">
-        <div class="container">
-            <div class="row">
-                <div class="col-2 oval">
-                    <h4 class="fonts1"><span style="font-style: italic;">ValPe'co </span> WebShop</h4>
-                </div>
-                @*Haku*@
-                <div style="margin-top: 28px; margin-left: 20px" class="col-4">
-                    <input class="form" id="searchString1" name="searchString1" placeholder="Haku" style="width: 200px;" type="text" value="">
+        <div class="border1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2 oval">
+                        <h4 class="fonts1"><span style="font-style: italic;">ValPe'co </span> WebShop</h4>
+                    </div>
+                    @*Haku*@
+                    <div style="margin-top: 28px; margin-left: 20px" class="col-4">
+                        <input class="form" id="searchString1" name="searchString1" placeholder="Haku" style="width: 200px;" type="text" value="">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        @* Showcase ikkuna *@
-        <div id="showcase">
-            <h2>Esittelyssä</h2>
-            <div id="product-display"></div>
-            <div id="picture-display" class="picture-display"></div>
-        </div>
+            @* Showcase ikkuna *@
+            <div id="showcase">
+                <div id="picture-display" class="picture-display">
+                </div>
+                <div>
+                    @*<h2>Esittelyssä</h2>*@
+                    <div id="product-display"></div>
+                </div>
+            </div>
 
-        @*Keski boxin elementit*@
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Image)
-                </th>
-
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+            @*Keski boxin elementit*@
+            <table class="table">
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @RenderProductImage(item.ProductID, item.Image)
-                    </td>
 
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products.First().Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products.First().Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Products.First().Image)
+                    </th>
 
+                    <th></th>
                 </tr>
-            }
-        </table>
-    </div>
+
+                @foreach (var item in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @RenderProductImage(item.ProductID, item.Image)
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        </div>
 
     </div>
 
 </main>
 
-<script>
+<script type="text/javascript">
     const products = [
-        @foreach (var product in Model)
+        @foreach (var product in Model.Products)
         {
-            @: { name: "@product.Name", description: "@product.Description", price: "@product.Price", pictureUrl: "@Url.Action("GetImage", "Products", new { id = product.ProductID })" },
+
+            @: { name: "@product.Name", price: "@(product.Price)", pictureUrl: "@Url.Action("GetImage", "Products", new { id = product.ProductID })" },
         }
     ];
 
-    let currentIndex = 0;
 
-    function showProduct(index) {
-        const productDisplay = document.getElementById("product-display");
-        const imageDisplay = document.getElementById("picture-display");
-        const product = products[index];
-        
-        productDisplay.innerHTML = `
+            let currentIndex = 0;
+
+            function showProduct(index) {
+                const productDisplay = document.getElementById("product-display");
+                const imageDisplay = document.getElementById("picture-display");
+                const product = products[index];
+
+                productDisplay.innerHTML = `
                     <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <p>${product.price}</p>
+
+                    <p style="color:red;">${product.price}</p>
 
                 `;
         imageDisplay.style.backgroundImage = `url(${product.pictureUrl})`;

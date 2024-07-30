@@ -13,10 +13,10 @@ namespace ValpeVerkkokauppa.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class VerkkokauppaEntities1 : DbContext
+    public partial class ValpeEntities : DbContext
     {
-        public VerkkokauppaEntities1()
-            : base("name=VerkkokauppaEntities1")
+        public ValpeEntities()
+            : base("name=ValpeEntities")
         {
         }
     
@@ -30,9 +30,9 @@ namespace ValpeVerkkokauppa.Models
         public virtual DbSet<OrderDetails> OrderDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<PostOffice> PostOffice { get; set; }
+        public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Tracking> Tracking { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Wishlist> Wishlist { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
     }
 }

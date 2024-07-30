@@ -18,7 +18,6 @@ namespace ValpeVerkkokauppa.Models
         public Orders()
         {
             this.OrderDetails = new HashSet<OrderDetails>();
-            this.OrderDetails1 = new HashSet<OrderDetails>();
         }
     
         public int OrderID { get; set; }
@@ -28,8 +27,6 @@ namespace ValpeVerkkokauppa.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetails> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetails> OrderDetails1 { get; set; }
         public virtual Users Users { get; set; }
         public virtual Tracking Tracking { get; set; }
     }

@@ -13,7 +13,7 @@ namespace ValpeVerkkokauppa.Controllers
 {
     public class ProductsController : Controller
     {
-        private VerkkokauppaEntities1 db = new VerkkokauppaEntities1();
+        private ValpeEntities db = new ValpeEntities();
 
         // GET: Products
         public ActionResult Index()
@@ -125,6 +125,18 @@ namespace ValpeVerkkokauppa.Controllers
             }
             return View(products);
         }
+
+        public ActionResult CategoryView (int? id)    //Haetaan id:llä kategoriaan liittyvät tuotteet, id parametroini
+        {
+            var kategoria = from k in db.Products
+                            where k.CategoryID == id
+                            select k;
+
+            return View(kategoria);
+        }
+
+
+
 
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
