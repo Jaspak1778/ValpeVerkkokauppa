@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -20,6 +20,16 @@ namespace ValpeVerkkokauppa.Controllers
         {
             var products = db.Products.Include(p => p.Category).ToList();
             return View(products);
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            var product = db.Products.Find(id);
+            if (product != null && product.Image != null)
+            {
+                return File(product.Image, "image/jpeg");
+            }
+            return null; // Or return a default image
         }
 
         // GET: Products/Details/5
@@ -45,19 +55,17 @@ namespace ValpeVerkkokauppa.Controllers
         }
 
         // POST: Products/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,UnitsInStock")] Products products, HttpPostedFileBase imageFile)
+        public ActionResult Create([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,UnitsInStock")] Products products, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
-                if (imageFile != null && imageFile.ContentLength > 0)
+                if (Image != null && Image.ContentLength > 0)
                 {
-                    using (var binaryReader = new System.IO.BinaryReader(imageFile.InputStream))
+                    using (var binaryReader = new BinaryReader(Image.InputStream))
                     {
-                        products.Image = binaryReader.ReadBytes(imageFile.ContentLength);
+                        products.Image = binaryReader.ReadBytes(Image.ContentLength);
                     }
                 }
 
@@ -128,21 +136,6 @@ namespace ValpeVerkkokauppa.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        public ActionResult GetImage(int id)
-        {
-            var product = db.Products.Find(id);
-            if (product != null && product.Image != null)
-            {
-                return File(product.Image, "image/jpeg"); // Assuming the image is in jpeg format
-            }
-            else
-            {
-                // Return a default image or a 404 not found image
-                return File("~/Content/Images/default.jpg", "image/jpeg");
-            }
-        }
-
 
         protected override void Dispose(bool disposing)
         {

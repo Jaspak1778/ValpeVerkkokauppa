@@ -1,4 +1,4 @@
-﻿@model ValpeVerkkokauppa.Models.Products
+﻿﻿@model ValpeVerkkokauppa.Models.Products
 
 @{
     ViewBag.Title = "Create";
@@ -14,8 +14,6 @@
         <h4>Products</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <!-- Remove the ProductID section -->
 
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -60,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="imageFile" />
+                <input type="file" name="Image" id="Image" class="form-control" />
                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
             </div>
         </div>
