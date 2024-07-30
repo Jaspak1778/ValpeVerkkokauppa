@@ -99,17 +99,42 @@ namespace ValpeVerkkokauppa.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,Image,UnitsInStock")] Products products)
+        public ActionResult Edit([Bind(Include = "ProductID,CategoryID,Name,Price,Description,Discount,UnitsInStock")] Products products, HttpPostedFileBase Image)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(products).State = EntityState.Modified;
+                var existingProduct = db.Products.Find(products.ProductID);
+                if (existingProduct == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Päivitetään tuotteen tiedot
+                existingProduct.CategoryID = products.CategoryID;
+                existingProduct.Name = products.Name;
+                existingProduct.Price = products.Price;
+                existingProduct.Description = products.Description;
+                existingProduct.Discount = products.Discount;
+                existingProduct.UnitsInStock = products.UnitsInStock;
+
+                // Päivitetään tuotteen kuva jos käyttäjä on lähettänyt uuden kuvan
+                if (Image != null && Image.ContentLength > 0)
+                {
+                    using (var binaryReader = new BinaryReader(Image.InputStream))
+                    {
+                        existingProduct.Image = binaryReader.ReadBytes(Image.ContentLength);
+                    }
+                }
+
+                db.Entry(existingProduct).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.CategoryID = new SelectList(db.Category, "Category_ID", "Name", products.CategoryID);
             return View(products);
         }
+
 
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
