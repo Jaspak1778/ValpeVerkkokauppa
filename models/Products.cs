@@ -20,7 +20,6 @@ namespace ValpeVerkkokauppa.Models
             this.OrderDetails = new HashSet<OrderDetails>();
         }
     
-        public int ProductID { get; set; }
         public int CategoryID { get; set; }
         public string Name { get; set; }
         public Nullable<decimal> Price { get; set; }
