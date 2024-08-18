@@ -24,6 +24,7 @@ namespace ValpeVerkkokauppa
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/custom.css",
                       "~/Content/site.css"));
         }
     }
