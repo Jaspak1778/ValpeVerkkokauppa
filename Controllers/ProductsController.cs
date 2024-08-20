@@ -22,14 +22,14 @@ namespace ValpeVerkkokauppa.Controllers
             return View(products);
         }
 
-        public ActionResult GetImage(int id)
+        public ActionResult GetImage(int id) //Binaari tiedosto kuvan haku kannasta ja muutos näytettävään muotoon.
         {
             var product = db.Products.Find(id);
             if (product != null && product.Image != null)
             {
                 return File(product.Image, "image/jpeg");
             }
-            return null; // Or return a default image
+            return null; // tai palauta tyhjä arvo
         }
 
         // GET: Products/Details/5
@@ -126,10 +126,10 @@ namespace ValpeVerkkokauppa.Controllers
             return View(products);
         }
 
-        public ActionResult CategoryView (int? id)    //Haetaan id:llä kategoriaan liittyvät tuotteet, id parametroini
+        public ActionResult CategoryView (int? id)    //Haetaan id:llä kategoriaan liittyvät tuotteet, id parametrointi, lähteestä Home Index Kategoriat buttonit.
         {
             var kategoria = from k in db.Products
-                            where k.CategoryID == id
+                            where k.CategoryID == id   //Kategoria id 
                             select k;
 
             return View(kategoria);

@@ -1,55 +1,43 @@
 ﻿@model IEnumerable<ValpeVerkkokauppa.Models.Products>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Discount)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.UnitsInStock)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>*@
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Discount)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Image)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.UnitsInStock)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>*@
-    </tr>
+@helper RenderProductImage(int productId, byte[] image)
+{
+    if (image != null)
+    {
+        <img src="@Url.Action("GetImage", "Products", new { id = productId })" alt="Product Image" style="width:100px;height:100px;" />
+    }
+    else
+    {
+        <p>No Image</p>
+    }
 }
 
-</table>
+<h3>Tuotteiden esittely näkymä</h3>
+<hr />
+<div>
+    <div class="row-cols-6"><a class="btn btn-info" data-toggle="tooltip" data-placement="bottom" title="Takaisin" href="javascript:void(0);" onclick="history.go(-1);"><img src="~/Icons/arrow-left-circle.svg" width="24" height="24" /></a></div>
+    <p></p>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        
+        <div class="col-lg-3">
+            <div class="card bg-light">
+                <h3 class="card-header">@item.Name</h3>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Price</h5>
+                    <div>
+                        @RenderProductImage(item.ProductID, item.Image)
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+
+    }
+
+</div>
+

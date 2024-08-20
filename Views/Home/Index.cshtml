@@ -102,7 +102,8 @@
         @foreach (var product in Model.Products)
         {
 
-            @: { name: "@product.Name", price: "@(product.Price)", pictureUrl: "@Url.Action("GetImage", "Products", new { id = product.ProductID })" },
+
+            @: { name: "@product.Name", price: "@product.Price)", pictureUrl: "@Url.Action("GetImage", "Products", new { id = product.ProductID })" },
         }
     ];
 
@@ -117,7 +118,7 @@
                 productDisplay.innerHTML = `
                     <h3>${product.name}</h3>
 
-                    <p style="color:red;">${product.price}</p>
+                    <p style="color:red;">${parseFloat(product.price).toFixed(2)}€</p>
 
                 `;
         imageDisplay.style.backgroundImage = `url(${product.pictureUrl})`;
