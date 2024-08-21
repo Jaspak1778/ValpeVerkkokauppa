@@ -12,22 +12,22 @@
 }
 
 <main>
-
-    <div class="box border1">
+    @*Tähän tulee tausta väriksi joku lievä gradient väri, css luokka acnhor*@
+    <div class="box border1 anchor">
 
         @*Box vasen Sivun otsikko ja ikoni*@
-        <div class="border1">
+        <div style="background-color:white" class="border1">
             <table class="table">
                 <tr>
-                    <th>
-                        <h3>Kategoriat</h3>
+                    <th style="background-color: white" >
+                        <h3 class="fonts2">Tuoteryhmä</h3>
                     </th>
                 </tr>
                 @foreach (var item in Model.Categories)
                 {
                     <tr>
-                        <td >
-                            <a class="btn buttonCustom1" href="/Products/CategoryView?id=@item.Category_ID">@item.Name</a>
+                        <td style="background-color: white"  >
+                            <a class="btn buttonCustom1 fonts3" href="/Products/CategoryView?id=@item.Category_ID">@item.Name</a>
                         </td>
                     </tr>
                 }
@@ -35,7 +35,7 @@
         </div>
 
         @*Box keskellä Sivun otsikko ja ikoni*@
-        <div class="border1">
+        <div style="background-color: white" class="border1">
             <div class="container">
                 <div class="row">
                     <div class="col-2 oval">
@@ -49,7 +49,7 @@
             </div>
 
             @* Showcase ikkuna *@
-            <div id="showcase">
+            <div class="customBG" id="showcase">
                 <div id="picture-display" class="picture-display">
                 </div>
                 <div>

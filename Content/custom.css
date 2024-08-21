@@ -1,22 +1,25 @@
 ﻿body {
     font-family: Arial, sans-serif;
+    
 }
 .border1 {
     margin: 10px 0;
     padding: 10px;
-    border: 2px solid #ccc;
+    border: 4px solid #ccc;
     border-radius: 10px;
+    
 }
 
 .box {
     display: grid;
-    
     grid-template-columns: 1fr 3fr;
     gap: 2px 2em;
+    
 }
 
     .box :first-child {
         align-self: auto;
+        
     }
 
 .oval {
@@ -34,13 +37,28 @@
     color: white;
 }
 
+.fonts2 {
+    
+    margin-left: 42px;
+    font-family: 'Segoe UI';
+    
+    color: black;
+}
+
+.fonts3 {
+    font-family: 'Segoe UI';
+    color: white;
+}
+
+
+
 /* Näyteikkuna */
 #showcase {
     margin: 20px 0;
     padding: 20px;
     border: 2px solid #ccc;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: #E9F9FA;
     text-align: center;
 }
 
@@ -71,9 +89,20 @@
 }
 
 .buttonCustom1 {
-    font-family:'Segoe UI';
+    font-family: 'Segoe UI';
     padding-left: 10%;
     width: 90%;
-    background: rgb(212,246,255);
-    background: linear-gradient(90deg, rgba(212,246,255,1) 0%, rgba(86,179,226,0.5736345563616072) 52%, rgba(136,142,232,0.33553931826636907) 100%);
+    background: rgb(24,224,213);
+    background-color: deepskyblue;
 }
+
+.buttonCustom1:hover {
+    background-color: mediumvioletred;
+}
+
+
+.anchor {
+    background: rgb(10,53,78);
+    background: linear-gradient(90deg, rgba(10,53,78,0.9573880577621674) 0%, rgba(59,71,212,0.5400211109834558) 51%, rgba(39,49,201,0.38035724543723737) 100%);
+}
+
